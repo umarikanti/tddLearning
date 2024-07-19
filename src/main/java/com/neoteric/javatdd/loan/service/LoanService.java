@@ -47,9 +47,9 @@ public class LoanService {
         amount = applicationForm.personalDetails.monthlyIncome - applicationForm.personalDetails.monthlyExpenses;
 
         LoanDetails loanDetails = approvedLoanDetails(applicationForm);
-        double totalAmount = loanDetails.approvedAmount * (1 + (loanDetails.annualInterestRate / 100 * loanDetails.numberOfMonths / 12));
 
         double monthlyInterestRate = loanDetails.annualInterestRate / 12 / 100;
+        double totalAmount = loanDetails.approvedAmount + (monthlyInterestRate * applicationForm.personalDetails.requestedMonths);
 
         double emi = (loanDetails.approvedAmount * monthlyInterestRate
                 * Math.pow(1 + monthlyInterestRate, applicationForm.personalDetails.requestedMonths)) /
