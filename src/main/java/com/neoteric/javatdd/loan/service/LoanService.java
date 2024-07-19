@@ -54,26 +54,26 @@ public class LoanService {
         double emi = (loanDetails.approvedAmount * monthlyInterestRate
                 * Math.pow(1 + monthlyInterestRate, applicationForm.personalDetails.requestedMonths)) /
                 (Math.pow(1 + monthlyInterestRate, applicationForm.personalDetails.requestedMonths) - 1);
+            if (applicationForm.personalDetails.loanAmountRequested <= amount * 10) {
 
-        if (applicationForm.personalDetails.loanAmountRequested<=amount*10) {
-            return "For " + applicationForm.personalDetails.requestedMonths +
-                    " months, your EMI for the approved amount of " +
-                    loanDetails.approvedAmount + " will be: " + emi +
-                    " Total amount with interest: " + totalAmount;
-        } else {
-            System.out.println("Your loan is rejected because requested loan greater then.");
-            return "The requested number of months is not available.";
+                return "For " + applicationForm.personalDetails.requestedMonths +
+                        " months, your EMI for the approved amount of " +
+                        loanDetails.approvedAmount + " will be EMI : " + emi +
+                        " Total amount with interest: " + totalAmount;
+            } else {
+                System.out.println("Your loan is rejected because requested loan greater then APPROVED LOAN.");
+            }
+        return "The requested IS REGECTED .";
+    }
+
+        public String processLoan (ApplicationForm applicationForm){
+            if (!isLoanApproved(applicationForm)) {
+                return "Loan is rejected due to equal income and expenses.";
+            }
+
+            return loanApproved(applicationForm);
         }
     }
 
-
-    public String processLoan(ApplicationForm applicationForm) {
-        if (!isLoanApproved(applicationForm)) {
-            return "Loan is rejected due to equal income and expenses.";
-        }
-
-        return loanApproved(applicationForm);
-    }
-}
 
 
